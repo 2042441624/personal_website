@@ -1,38 +1,29 @@
 <template>
-  <div class="container">
-    <section class="Gio-98">
-      <div class="box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-          <line class="top" x1="0" y1="0" x2="900" y2="0" />
-          <line class="left" x1="0" y1="460" x2="0" y2="-920" />
-          <line class="bottom" x1="300" y1="460" x2="-600" y2="460" />
-          <line class="right" x1="300" y1="0" x2="300" y2="1380" />
-        </svg>
-        <h3>{{ nowHour }}</h3>
-        <span>时</span>
+  <section>
+    <div class="box">
+      <div>
+        <span>
+          {{ nowHour[0] ? (nowHour[1] ? nowHour[0] : "0") : nowHour[0] }}</span
+        >
       </div>
-      <div class="box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-          <line class="top" x1="0" y1="0" x2="900" y2="0" />
-          <line class="left" x1="0" y1="460" x2="0" y2="-920" />
-          <line class="bottom" x1="300" y1="460" x2="-600" y2="460" />
-          <line class="right" x1="300" y1="0" x2="300" y2="1380" />
-        </svg>
-        <h3>{{ nowMinute }}</h3>
-        <span>分</span>
+      <div>
+        <span>{{ nowHour[1] ? nowHour[1] : nowHour[0] }}</span>
       </div>
-      <div class="box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-          <line class="top" x1="0" y1="0" x2="900" y2="0" />
-          <line class="left" x1="0" y1="460" x2="0" y2="-920" />
-          <line class="bottom" x1="300" y1="460" x2="-600" y2="460" />
-          <line class="right" x1="300" y1="0" x2="300" y2="1380" />
-        </svg>
-        <h3>{{ nowSecond }}</h3>
-        <span>秒</span>
+    </div>
+    <div class="box">
+      <div>
+        {{ nowMinute[0] ? (nowMinute[1] ? nowMinute[0] : "0") : nowMinute[0] }}
       </div>
-    </section>
-  </div>
+      <div>{{ nowMinute[1] ? nowMinute[1] : nowMinute[0] }}</div>
+    </div>
+    <!-- 11 -->
+    <div class="box">
+      <div>
+        {{ nowSecond[0] ? (nowSecond[1] ? nowSecond[0] : "0") : nowSecond[0] }}
+      </div>
+      <div>{{ nowSecond[1] ? nowSecond[1] : nowSecond[0] }}</div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -61,178 +52,57 @@ export default {
 
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    // 页面窗口高度计算
+  },
   created() {},
   mounted() {},
+  beforeUpdate() {},
 };
 </script>
 <style lang="scss" scoped>
-/*author MARY LOU */
-/* COMPONENTS */
-.container {
-  width: 100%;
-  height: 100%;
-  .Gio-98 {
+/*屏幕425px以下*/
+@media screen and (max-width: 425px) {
+  section {
     width: 100%;
     height: 100%;
     display: flex;
     flex-flow: row nowrap;
+    font-size: 1rem;
     .box {
       flex: 1;
-      position: relative;
-      background: rgba(255, 255, 255, 1);
-      display: inline-block;
-      margin: 0 10px;
-      cursor: pointer;
-      color: #2c3e50;
-      box-shadow: inset 0 0 0 3px #2c3e50;
-      -webkit-transition: background 0.4s 0.5s;
-      transition: background 0.4s 0.5s;
-      font-size: 16px;
-      h3 {
-        font-family: "Ruthie", cursive;
-        font-size: 3em;
-        line-height: 250%;
-        margin: 0;
-        font-weight: 400;
-        width: 100%;
-      }
-      span {
-        font-family: "Ruthie", cursive;
-        display: block;
-        font-weight: 400;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 1.5em;
-        padding: 5px;
-      }
-      .box h3,
-      .box span {
-        -webkit-transition: color 0.4s 0.5s;
-        transition: color 0.4s 0.5s;
+      display: flex;
+      div {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center; /*水平主轴居中*/
+        align-items: center; /*垂直交叉轴居中*/
       }
     }
   }
 }
-
-.box:hover {
-  background: rgba(255, 255, 255, 0);
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
+/*屏幕425px以上*/
+@media screen and (min-width: 425px) {
+  section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .box {
+      flex: 1;
+      display: flex;
+      div {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center; /*水平主轴居中*/
+        align-items: center; /*垂直交叉轴居中*/
+      }
+    }
+  }
 }
-
-.box:hover h3,
-.box:hover span {
-  color: #ffffff;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
-}
-
-.box svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.box svg line {
-  stroke-width: 3;
-  stroke: #ecf0f1;
-  fill: none;
-  -webkit-transition: all 0.8s ease-in-out;
-  transition: all 0.8s ease-in-out;
-}
-
-.box:hover svg line {
-  -webkit-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-}
-
-.box svg line.top,
-.box svg line.bottom {
-  stroke-dasharray: 330 240;
-}
-
-.box svg line.left,
-.box svg line.right {
-  stroke-dasharray: 490 400;
-}
-
-.box:hover svg line.top {
-  -webkit-transform: translateX(-600px);
-  transform: translateX(-600px);
-}
-
-.box:hover svg line.bottom {
-  -webkit-transform: translateX(600px);
-  transform: translateX(600px);
-}
-
-.box:hover svg line.left {
-  -webkit-transform: translateY(920px);
-  transform: translateY(920px);
-}
-
-.box:hover svg line.right {
-  -webkit-transform: translateY(-920px);
-  transform: translateY(-920px);
-}
-
-/* Alternatives */
-
-/* Frame */
-.Gio-98 {
-  padding: 0;
-}
-.Gio-98 .box {
-  background: rgba(0, 0, 0, 0);
-  color: #fff;
-  box-shadow: none;
-  -webkit-transition: background 0.3s;
-  transition: background 0.3s;
-}
-
-.Gio-98 .box:hover {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.Gio-98 .box h3,
-.Gio-98 .box span {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.Gio-98 .box svg line {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.Gio-98 .box:hover svg line {
-  stroke-width: 10;
-  -webkit-transition-delay: 0s;
-  transition-delay: 0s;
-}
-
-.Gio-98 .box:hover svg line.top {
-  -webkit-transform: translateX(-300px);
-  transform: translateX(-300px);
-}
-
-.Gio-98 .box:hover svg line.bottom {
-  -webkit-transform: translateX(300px);
-  transform: translateX(300px);
-}
-
-.Gio-98 .box:hover svg line.left {
-  -webkit-transform: translateY(460px);
-  transform: translateY(460px);
-}
-
-.Gio-98 .box:hover svg line.right {
-  -webkit-transform: translateY(-460px);
-  transform: translateY(-460px);
-}
-
-/* COMPONENTS */
 
 /* CSS */
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|Ruthie);
@@ -250,277 +120,4 @@ export default {
     url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.svg#Gioicons")
       format("svg");
 }
-
-*,
-*:after,
-*:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.clearfix:before,
-.clearfix:after {
-  content: "";
-  display: table;
-}
-.clearfix:after {
-  clear: both;
-}
-
-body {
-  background: #2c3e50;
-  color: #ecf0f1;
-  font-size: 100%;
-  line-height: 1.25;
-  font-family: "Lato", Arial, sans-serif;
-}
-
-a {
-  color: #95a5a6;
-  text-decoration: none;
-  outline: none;
-}
-
-a:hover,
-a:focus {
-  color: #fff;
-}
-
-.Gio-icon:before {
-  margin: 0 4px;
-  text-transform: none;
-  font-weight: normal;
-  font-style: normal;
-  font-variant: normal;
-  font-family: "Gioicons";
-  line-height: 1;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-.Gio-icon-drop:before {
-  content: "\e001";
-}
-
-.Gio-icon-prev:before {
-  content: "\e004";
-}
-
-section {
-  padding: 2em;
-  text-align: center;
-}
-
-.related p {
-  font-size: 1.5em;
-}
-
-.related > a {
-  background: rgba(0, 0, 0, 0.05);
-  display: inline-block;
-  text-align: center;
-  margin: 20px 10px;
-  padding: 25px;
-  -webkit-transition: color 0.3s, background-color 0.3s;
-  transition: color 0.3s, background-color 0.3s;
-}
-
-.related a:hover {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.related a img {
-  max-width: 100%;
-  opacity: 0.8;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-}
-
-.related a:hover img,
-.related a:active img {
-  opacity: 1;
-}
-
-.related a h3 {
-  margin: 0;
-  padding: 0.5em 0 0.3em;
-  max-width: 300px;
-  text-align: left;
-}
-
-@media screen and (max-width: 25em) {
-  .Gio-icon span {
-    display: none;
-  }
-}
-/* CSS */
-
-/* NORMALIZE */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-video {
-  display: inline-block;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden] {
-  display: none;
-}
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-}
-a:focus {
-  outline: thin dotted;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, serif;
-  font-size: 1em;
-}
-pre {
-  white-space: pre-wrap;
-}
-q {
-  quotes: "\201C""\201D""\2018""\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 0;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-button,
-input {
-  line-height: normal;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-input[type="search"] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-  vertical-align: top;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-/* NORMALIZE */
 </style>
