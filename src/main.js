@@ -14,6 +14,7 @@ Vue.use(BreadcrumbItem);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
 
+
 Vue.prototype.$message = Message
 
 Vue.config.productionTip = false

@@ -61,6 +61,25 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/* CSS */
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|Ruthie);
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "Gioicons";
+  src: url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.eot");
+  src: url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.eot?#iefix")
+      format("embedded-opentype"),
+    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.woff")
+      format("woff"),
+    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.ttf")
+      format("truetype"),
+    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.svg#Gioicons")
+      format("svg");
+}
+section {
+
+}
 /*屏幕425px以下*/
 @media screen and (max-width: 425px) {
   section {
@@ -102,22 +121,5 @@ export default {
       }
     }
   }
-}
-
-/* CSS */
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|Ruthie);
-@font-face {
-  font-weight: normal;
-  font-style: normal;
-  font-family: "Gioicons";
-  src: url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.eot");
-  src: url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.eot?#iefix")
-      format("embedded-opentype"),
-    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.woff")
-      format("woff"),
-    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.ttf")
-      format("truetype"),
-    url("http://disantimonia.pixub.com/codepen/codropsicons/Gioicons.svg#Gioicons")
-      format("svg");
 }
 </style>

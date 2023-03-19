@@ -6,12 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="./favicon.ico">
+  <!-- 底部nav的js -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
   <style>
+
+
     * {
       margin: 0;
       padding: 0;
@@ -20,7 +24,7 @@
     }
 
     html {
-      font-size: 16px;
+   
     }
 
     body {
@@ -52,7 +56,9 @@
 
 <body>
   <div id="app"></div>
+
   <canvas id="canvas" style="z-index:999"></canvas>
+
 </body>
 
 </html>
@@ -80,7 +86,7 @@
       clearTimeout(setOut)
       //鼠标移动
       isMove = true
-      for (var i = 0; i < 8; i++) { //添加15个粒子
+      for (var i = 0; i < 5; i++) { //添加15个粒子
         points.push({
           sx: evt.x, //鼠标当前坐标作为粒子坐标
           sy: evt.y,
@@ -95,7 +101,7 @@
     })
     window.addEventListener("touchmove", function (evt) { //监听鼠标移动事件
       index++
-      for (var i = 0; i < 8; i++) { //添加15个粒子
+      for (var i = 0; i < 3; i++) { //添加15个粒子
         points.push({
           sx: evt.touches[0].pageX, //鼠标当前坐标作为粒子坐标
           sy: evt.touches[0].pageY,
@@ -103,7 +109,7 @@
           vy: 0.5 - Math.random(),
           life: live, //存活周期
           color: colors[parseInt(Math.random() * colors.length)], //随机选择颜色
-          size: Math.random() * 5 //随机粒子尺寸，取值范围为0~5
+          size: Math.random() * 2 //随机粒子尺寸，取值范围为0~3
         })
       }
 

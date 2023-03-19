@@ -37,7 +37,6 @@
               </div>
               <a href="#">查看日记</a>
             </div>
-
             <img src="../assets/images/Css.png" />
           </div>
         </div>
@@ -52,6 +51,107 @@
               <a href="#">查看日记</a>
             </div>
             <img src="../assets/images/Javascript.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>Axios</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>请求拦截，返回pomise</p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/Axios.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>Sass/Scss</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>css预处理，变量，块级编程，css函数</p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/Sass.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>Vue2</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>
+                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
+                </p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/Vue.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>Element-ui</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>
+                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
+                </p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/element-ui.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>Echarts</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>
+                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
+                </p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/Echarts.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>mini-program</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>
+                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
+                </p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/wechat-logo-mini-program.png" />
+          </div>
+        </div>
+        <div class="card-Hero">
+          <div class="content-Hero">
+            <div class="content-show">
+              <h3>uniapp</h3>
+              <div>
+                <p>程度：基本了解</p>
+                <p>
+                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
+                </p>
+              </div>
+              <a href="#">查看日记</a>
+            </div>
+            <img src="../assets/images/uniapp.png" />
           </div>
         </div>
       </div>
@@ -76,6 +176,22 @@ export default {
   },
   created() {},
   mounted() {
+    let maxHeight = document.querySelector(".maxHeight");
+    let app_breadcrumb = document.querySelector(".app_breadcrumb");
+    let container = document.querySelector(".container");
+    maxHeight.addEventListener("scroll", function () {
+      this.nowScrollNumber = maxHeight.scrollTop;
+
+      if (
+        maxHeight.scrollTop >=
+        container.parentNode.offsetTop - container.offsetTop
+      ) {
+    
+        app_breadcrumb.style.top = `${maxHeight.scrollTop - 10}px`;
+      } else {
+        app_breadcrumb.style.top = `0px`;
+      }
+    });
     let cardHeros = document.querySelectorAll(".card-Hero");
     for (var i = 0; i < cardHeros.length; i++) {
       cardHeros[i].index = i; // 为第i个li元素添加一个index属性，赋值为i
@@ -87,9 +203,11 @@ export default {
             cardHeros[index].children[0].children[0].style.opacity = 0;
             cardHeros[index].children[0].children[0].style.visibility =
               "hidden";
+            cardHeros[index].children[0].children[1].style.width = 100 + "%";
             cardHeros[index].children[0].children[1].style.height = 100 + "%";
             cardHeros[index].children[0].children[1].style.transform =
               "translateX(" + 0 + "%)";
+            cardHeros[index].children[0].children[1].style.scale = 0.5;
           }
         }
         // content - HeroShow;
@@ -99,14 +217,18 @@ export default {
           console.log("显示了");
           this.children[0].children[0].style.opacity = 1;
           this.children[0].children[0].style.visibility = "visible";
+          this.children[0].children[1].style.width = 25 + "%";
           this.children[0].children[1].style.height = 50 + "%";
+          this.children[0].children[1].style.scale = 1;
           this.children[0].children[1].style.transform =
-            "translateX(" + 33 + "%)";
+            "translateX(" + 300 + "%)";
         } else {
           console.log("隐藏了");
           this.children[0].children[0].style.opacity = 0;
           this.children[0].children[0].style.visibility = "hidden";
+          this.children[0].children[1].style.width = 100 + "%";
           this.children[0].children[1].style.height = 100 + "%";
+          this.children[0].children[1].style.scale = 0.5;
           this.children[0].children[1].style.transform =
             "translateX(" + 0 + "%)";
         }
@@ -117,6 +239,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.maxHeight {
+  overflow-y: scroll;
+  .app_breadcrumb {
+    position: relative;
+    z-index: 99999999;
+  }
+}
+.maxHeight::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 100%;
+}
+.maxHeight::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    #ffa0d3 0%,
+    #d8edd8 0%,
+    #d3fad3 0%,
+    #f4d596 30%,
+    #f0ffc0 64%,
+    #92fbfd 100%
+  );
+}
 /deep/ .el-card__body {
   width: 100%;
   height: 100%;
@@ -146,9 +290,9 @@ export default {
   flex-grow: 1;
   padding: 0.25rem;
   height: 300px;
-  background: linear-gradient(89deg, #000, #064c67);
+  background: rgba(#eeeeee, 0.3);
   border-radius: 15px;
-  transition: 0.5s;
+  transition: 0.7s;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -162,7 +306,15 @@ export default {
   height: 200%;
   left: 50%;
   top: 50%;
-  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    to right,
+    #ffa0d3 0%,
+    #d8edd8 0%,
+    #d3fad3 0%,
+    #f4d596 30%,
+    #f0ffc0 64%,
+    #92fbfd 100%
+  );
   transform-origin: left top;
   animation: card-Hero-bg 6s linear infinite;
 }
@@ -187,15 +339,15 @@ export default {
 .container .card-Hero .content-Hero {
   width: 99%;
   height: 99%;
-  background-color: #064c67;
+  background-color: rgb(255, 252, 238);
   position: relative;
   margin: 0.5%;
   z-index: 99;
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   align-items: left;
-
+  color: #111;
   transition: 0.5s;
 }
 .container .card-Hero .content-Hero .content-show {
@@ -212,14 +364,15 @@ export default {
   height: 100%;
   object-fit: contain;
   z-index: 9;
+  scale: 0.5;
 }
 
 .container .card-Hero .content-Hero h3 {
   max-width: 100%;
   overflow: hidden;
-  color: #fff;
+
   text-transform: uppercase;
-  font-size: 30px;
+  font-size: 1.5rem;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -227,7 +380,6 @@ export default {
   max-width: 80%;
   font-size: 0.75rem;
   overflow: hidden;
-  color: #fff;
   white-space: wrap;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -246,7 +398,7 @@ export default {
   text-decoration: none;
   font-weight: 700;
   border-radius: 5px;
-  display: inline;
+  display: inline-block;
 }
 
 @media screen and (max-width: 425px) {

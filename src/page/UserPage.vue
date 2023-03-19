@@ -30,10 +30,43 @@
           <CradComponent class="userNav" :cardContent="cardContent">
             <template slot="center">
               <ul>
-                <li>姓名：杨金锐 学历：大专</li>
-                <li>年龄：22 性别：男 状态：待业</li>
-                <li>19849348404</li>
-                <li>18926730109</li>
+                <li>
+                  <el-button icon="el-icon-s-custom" el-icon-s-custom
+                    >姓名：杨金锐</el-button
+                  >
+                  <el-button icon="el-icon-sugar" el-icon-s-custom
+                    >年龄：22</el-button
+                  >
+                </li>
+                <li>
+                  <el-button icon="el-icon-notebook-1" el-icon-s-custom>
+                    学历：大专</el-button
+                  >
+                  <el-button icon="el-icon-male" el-icon-s-custom>
+                    性别：男</el-button
+                  >
+                </li>
+
+                <li>
+                  <el-button icon="el-icon-loading" el-icon-s-custom>
+                    状态：待业</el-button
+                  >
+                </li>
+                <li>
+                  <el-button icon="el-icon-phone-outline" el-icon-s-custom>
+                    18926730109</el-button
+                  >
+                </li>
+                <li>
+                  <a href="https://beian.miit.gov.cn/" target="_blank"
+                    >备案/许可证：</a
+                  >
+                  <p>
+                    <a href="https://beian.miit.gov.cn/" target="_blank"
+                      >粤ICP备2023017771号</a
+                    >
+                  </p>~
+                </li>
               </ul></template
             ></CradComponent
           >
@@ -61,6 +94,7 @@ export default {
   data: function () {
     return {
       media: 5,
+      nowScrollNumber: 0,
       el_carousel_height: "60px",
       showText: false,
       loadedState: false,
@@ -289,13 +323,15 @@ export default {
   .userNav {
     height: 100%;
     box-sizing: border-box;
+
     ul {
+      padding: 2px;
       height: 100%;
       display: flex;
       flex-flow: column nowrap;
       li {
-        display: block;
-        text-align: left;
+        display: inline;
+        flex-shrink: 1;
       }
     }
   }
@@ -308,7 +344,6 @@ export default {
   }
   .viewTop {
     margin-top: 0.25rem;
-    overflow: scroll;
   }
 
   // 手机屏幕下是竖着排序
@@ -330,6 +365,7 @@ export default {
       .afterLoading {
         display: flex;
         flex-flow: column wrap;
+        gap: 0;
         .el-card:first-child {
           width: 40%;
           padding: 0;
@@ -346,6 +382,12 @@ export default {
         .userNav {
           height: 100%;
           overflow: scroll;
+          ul {
+            gap: auto;
+          }
+          li {
+            font-size: 14px;
+          }
         }
       }
     }
@@ -356,6 +398,9 @@ export default {
     // time_card深度样式
     /deep/.el-card__body.time_card {
       padding: 0;
+    }
+    /deep/.el-button {
+      padding: 2px;
     }
   }
 }

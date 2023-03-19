@@ -18,11 +18,15 @@
     </div>
     <ul class="menu">
       <li>
-        <a href="#"><ion-icon name="home"></ion-icon></a>
+        <router-link to="/home"
+          ><ion-icon name="home"></ion-icon
+        ></router-link>
       </li>
       <li></li>
       <li>
-        <a href="#"><ion-icon name="person"></ion-icon></a>
+        <router-link to="/user"
+          ><ion-icon name="person"></ion-icon
+        ></router-link>
       </li>
     </ul>
   </div>
@@ -40,8 +44,8 @@ export default {
   methods: {},
   created() {},
   mounted() {
-    let menuToggle = document.querySelector(".menuToggle");
-    let tab = document.querySelector(".tab");
+    const menuToggle = document.querySelector(".menuToggle");
+    const tab = document.querySelector(".tab");
     menuToggle.onclick = function () {
       tab.classList.toggle("active");
     };
@@ -49,14 +53,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-div.tab {
+.tab {
   position: relative;
-  width: 100%;
+  min-width: 100%;
   height: 80px;
   z-index: 1;
   user-select: none;
-  border-radius: 15px;
-  background-color: #ff3b7e;
 }
 
 .tab .menuToggle {
@@ -75,11 +77,12 @@ div.tab {
   cursor: pointer;
   font-weight: 400;
   transition: 1s ease-in-out;
+  text-align: center;
   line-height: 60px;
 }
 
 .tab.active .menuToggle {
-  transform: translateX(-50%) rotate(180deg);
+  transform: translateX(-50%) rotate(225deg);
 }
 
 .tab .circular,
@@ -119,12 +122,17 @@ div.tab {
 .tab.active .circularbg2 {
   transition-delay: 0s;
 }
-.tab ul.circle {
+.tab ul.circle,
+.tab > ul.menu {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 .tab ul.circle li {
@@ -158,22 +166,16 @@ div.tab {
 }
 
 .tab ul.menu {
-  position: relative;
-  width: 100%;
-  padding: 0 10px;
-  inset: 0;
   background-color: #fff;
-  height: 100%;
   border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 55px;
+
   box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.1);
 }
 
 .tab ul.menu li {
+  flex: 1;
   list-style: none;
+  text-align: center;
 }
 
 .tab ul.menu li ion-icon {
@@ -184,5 +186,11 @@ div.tab {
 
 .tab ul.menu li:hover ion-icon {
   color: #2196f3;
+}
+@media screen and (min-width: 1080px) {
+  .tab > ul.menu {
+    width: 400px;
+    transform: translateX(-50%);
+  }
 }
 </style>
