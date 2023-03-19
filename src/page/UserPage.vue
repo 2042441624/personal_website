@@ -7,6 +7,17 @@
           <el-empty description="加载中"></el-empty>
         </el-card>
         <router-view class="viewTop"></router-view>
+        <footer id="Bottom_filing">
+          <div class="img_filing"></div>
+          <div class="a_filing">
+            <a
+              href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=粤ICP备2023017771号"
+              target="_blank"
+            >
+              备案/许可证: 粤ICP备2023017771号</a
+            >
+          </div>
+        </footer>
       </el-col>
       <!--userAsideCol主体相关盒子-->
       <el-col :xs="8" :sm="8" :md="20" :lg="6" id="userAsideCol">
@@ -56,16 +67,6 @@
                   <el-button icon="el-icon-phone-outline" el-icon-s-custom>
                     18926730109</el-button
                   >
-                </li>
-                <li>
-                  <a href="https://beian.miit.gov.cn/" target="_blank"
-                    >备案/许可证：</a
-                  >
-                  <p>
-                    <a href="https://beian.miit.gov.cn/" target="_blank"
-                      >粤ICP备2023017771号</a
-                    >
-                  </p>~
                 </li>
               </ul></template
             ></CradComponent
@@ -270,7 +271,27 @@ export default {
   #userMainCol.el-col {
     // 路由盒子撑开高度
     .viewTop {
-      height: 100%;
+      height: calc(100% - 25px);
+    }
+    #Bottom_filing {
+      text-align: center;
+      height: 24px;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-content: center;
+      padding: 2px;
+      .img_filing {
+        width: 20px;
+        height: 20px;
+        background-image: url("@/assets/images/国徽.jpg") ;
+        background-size:cover;
+        background-origin: center;
+      }
+      .a_filing {
+        font-size: 16px;
+        max-height: 20px;
+      }
     }
   }
   //行下面的加载盒子样式

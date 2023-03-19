@@ -1,6 +1,6 @@
 <template>
   <div class="tab">
-    <div class="menuToggle">+</div>
+    <div class="menuToggle"><div></div></div>
     <div class="circularbg1"></div>
     <div class="circularbg2"></div>
     <div class="circular">
@@ -18,9 +18,7 @@
     </div>
     <ul class="menu">
       <li>
-        <router-link to="/home"
-          ><ion-icon name="home"></ion-icon
-        ></router-link>
+        <router-link to="/home"><ion-icon name="home"></ion-icon></router-link>
       </li>
       <li></li>
       <li>
@@ -71,14 +69,21 @@ export default {
   z-index: 1;
   border-radius: 50%;
   transform: translateX(-50%);
-  text-align: center;
-  font-size: 2.5em;
-  color: #fff;
   cursor: pointer;
-  font-weight: 400;
+  display: grid;
+  place-items: center;
   transition: 1s ease-in-out;
-  text-align: center;
-  line-height: 60px;
+  div {
+    width: 50%;
+    height: 50%;
+    border-radius:50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 30px;
+    vertical-align: middle;
+    background: #fff;
+  }
+ 
 }
 
 .tab.active .menuToggle {

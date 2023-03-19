@@ -26,7 +26,7 @@
       </el-row>
     </div>
     <div id="per_img" v-else>
-      <div class="img_footer"><a>包装违背该男子自学意愿[求实习工作]</a></div>
+      <div class="img_footer"><a>我很低端;我脚步不停</a></div>
     </div>
   </div>
 </template>
@@ -54,8 +54,9 @@ export default {
 <style lang='scss' scoped>
 .img_footer {
   position: absolute;
-  top: 0;
+  bottom: 0;
   width: 100%;
+  background-color: rgb(189, 189, 189);
   text-align: center;
 }
 .home {
