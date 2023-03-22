@@ -1,5 +1,5 @@
 <template>
-  <div class="userpage">
+  <div class="userpage" v-loading.fullscreen.lock="fullscreenLoading">
     <el-row :gutter="20" id="mainContent">
       <!--userMainCol主体盒子-->
       <el-col :xs="16" :sm="16" :md="4" :lg="18" id="userMainCol">
@@ -94,6 +94,7 @@ export default {
 
   data: function () {
     return {
+      fullscreenLoading: true,
       media: 5,
       nowScrollNumber: 0,
       el_carousel_height: "60px",
@@ -123,6 +124,10 @@ export default {
     };
   },
   created() {
+    setTimeout(() => {
+      this.fullscreenLoading = false;
+      this.isimg = true;
+    }, 1500);
     this.resizeEcharts();
     if (this.$route.path !== "/user/experience") {
       this.$router.replace({ path: "/user/experience" });
@@ -284,8 +289,8 @@ export default {
       .img_filing {
         width: 20px;
         height: 20px;
-        background-image: url("@/assets/images/国徽.jpg") ;
-        background-size:cover;
+        background-image: url("@/assets/images/国徽.jpg");
+        background-size: cover;
         background-origin: center;
       }
       .a_filing {

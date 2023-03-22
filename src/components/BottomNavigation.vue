@@ -63,7 +63,7 @@ export default {
   position: absolute;
   width: 60px;
   height: 60px;
-  top: -30px;
+  top: 10px;
   left: 50%;
   background-color: #ff3b7e;
   z-index: 1;

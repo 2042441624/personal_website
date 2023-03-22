@@ -14,8 +14,6 @@
     <%= htmlWebpackPlugin.options.title %>
   </title>
   <style>
-
-
     * {
       margin: 0;
       padding: 0;
@@ -23,9 +21,12 @@
       text-decoration: none;
     }
 
-    html {
-   
+    /* 全屏加载的样式 */
+    div.el-loading-mask {
+      background-color: rgba(255, 255, 255, 0.3);
     }
+
+    html {}
 
     body {
       overflow: hidden;
