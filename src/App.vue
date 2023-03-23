@@ -7,6 +7,7 @@
 
 <script>
 import BottomNavigation from "@/components/BottomNavigation";
+
 export default {
   name: "App",
   components: {
@@ -25,7 +26,6 @@ export default {
 
 #app {
   font-family: "Gioicons";
-
   position: relative;
   height: 100%;
   display: flex;
