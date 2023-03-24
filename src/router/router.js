@@ -6,7 +6,7 @@ const router = new vueRouter({
 
     routes: [
         {
-            path: "/", redirect: '/user'
+            path: "/", redirect: '/resume'
         },
         {
             path: "/home", name: 'home', component: () => import('@/page/HomePage.vue'),
@@ -23,8 +23,16 @@ const router = new vueRouter({
                 path: "/user/experience", name: 'experience', component: () => import('@/view/experienceView.vue'),
 
             }]
-        }
-
+        },
+        {
+            path: "/mybio", name: 'mybio', component: () => import('@/page/mybioPage.vue'),
+        },
+        {
+            path: "/resume", name: 'resume', component: () => import('@/page/resumePage.vue'),
+        },
+        {
+            path: "/app", name: 'app', component: () => import('@/page/appPage.vue'),
+        },
 
 
     ]

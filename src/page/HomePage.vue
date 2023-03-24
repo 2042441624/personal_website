@@ -507,7 +507,16 @@ export default {
     createdInputItem(event) {
       let eventParent = getparent(event.target, ".el-form-item__content");
       console.log();
-      $(eventParent).children("ul").eq(0).append(`<li data-v-8b8e04b6=""><div data-v-8b8e04b6="" class="el-row"><div data-v-8b8e04b6="" class="el-col el-col-24 el-col-sm-5"><div data-v-8b8e04b6="" class="el-input" style="display: inline;"><!----><input type="text" autocomplete="off" placeholder="你的概述标签" class="el-input__inner"><!----><!----><!----><!----></div></div><div data-v-8b8e04b6="" class="el-col el-col-0.2">:</div><div data-v-8b8e04b6="" class="el-col el-col-18 el-col-sm-18"><div data-v-8b8e04b6="" class="el-input"><!----><input type="text" autocomplete="off" placeholder="你的标签内容" class="el-input__inner"><!----><!----><!----><!----></div></div></div></li>`);
+      $(eventParent)
+        .children("ul")
+        .eq(0)
+        .append(
+          `<li data-v-8b8e04b6=""><div data-v-8b8e04b6="" class="el-row"><div data-v-8b8e04b6="" class="el-col el-col-24 el-col-sm-5"><div data-v-8b8e04b6="" class="el-input" style="display: inline;"><!----><input type="text" autocomplete="off" placeholder="你的概述标签" class="el-input__inner"><!----><!----><!----><!----></div></div><div data-v-8b8e04b6="" class="el-col el-col-0.2">:</div><div data-v-8b8e04b6="" class="el-col el-col-18 el-col-sm-18"><div data-v-8b8e04b6="" class="el-input"><!----><input type="text" autocomplete="off" placeholder="你的标签内容" class="el-input__inner"><!----><!----><!----><!----></div></div></div></li>`
+        );
+    },
+    //生产简历按钮
+    generateBiographicalNotes() {
+      
     },
     handlInput(e, i) {
       console.log(e);
@@ -519,12 +528,13 @@ export default {
     contactInput(index) {
       console.dir(this.form, index);
     },
-    handleRemove(file) {
-      console.log(file);
-    },
+
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
+    },
+    handleRemove(file) {
+      console.log(file);
     },
     handleDownload(file) {
       console.log(file);
@@ -602,7 +612,6 @@ export default {
 /deep/ .el-form {
   min-height: 100%;
 }
-//el-button样式
 
 .el-row {
   padding-bottom: 20px;

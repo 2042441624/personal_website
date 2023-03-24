@@ -6,13 +6,22 @@
     <div class="circular">
       <ul class="circle">
         <li>
-          <a href="#"><ion-icon name="camera-outline"></ion-icon></a>
+          <!-- 个人简历icon -->
+          <router-link :to="{name:'mybio'}"
+            ><ion-icon name="id-card-sharp"></ion-icon
+          ></router-link>
         </li>
+        <!-- 简历模板 -->
         <li>
-          <a href="#"><ion-icon name="qr-code-outline"></ion-icon></a>
+          <router-link :to="{name:'resume'}"
+            ><ion-icon name="folder-sharp"></ion-icon
+          ></router-link>
         </li>
+        <!-- 开发页面icon -->
         <li>
-          <a href="#"><ion-icon name="videocam-outline"></ion-icon></a>
+          <router-link :to="{name:'app'}"
+            ><ion-icon name="apps"></ion-icon>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -76,14 +85,13 @@ export default {
   div {
     width: 50%;
     height: 50%;
-    border-radius:50%;
+    border-radius: 50%;
     text-align: center;
     line-height: 30px;
     font-size: 30px;
     vertical-align: middle;
     background: #fff;
   }
- 
 }
 
 .tab.active .menuToggle {
