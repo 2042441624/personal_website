@@ -40,18 +40,14 @@
         status-icon
       >
         <el-row>
-          <el-upload
-            action="#"
-            list-type="picture-card"
-            :auto-upload="false"
-            @change="changepic()"
-          >
+          <el-upload action="#" list-type="picture-card" :auto-upload="false">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{ file }">
               <img
                 class="el-upload-list__item-thumbnail"
                 :src="file.url"
                 alt=""
+                @load="changepic(file)"
               />
               <span class="el-upload-list__item-actions">
                 <span
@@ -80,6 +76,7 @@
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="" />
           </el-dialog>
+
           <el-col>
             <el-row>
               <el-form-item label="姓名" prop="name">
@@ -194,7 +191,6 @@
             </el-row>
           </el-col>
         </el-row>
-
         <el-form-item
           label="自我评价"
           id="selfAssessment"
@@ -340,13 +336,14 @@
 <script>
 import { distinguishFacility } from "@/utility/viewport/viewport.js";
 import { getparent } from "@/utility/viewport/DOMcorrelation.js";
-import * as imageConversion from "image-conversion";
+// import * as imageConversion from "image-conversion";
 import $ from "jquery";
 export default {
   name: "home_page",
   data() {
     return {
       //头像
+      imageUrl: "",
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
@@ -515,9 +512,7 @@ export default {
         );
     },
     //生产简历按钮
-    generateBiographicalNotes() {
-      
-    },
+    generateBiographicalNotes() {},
     handlInput(e, i) {
       console.log(e);
       this.$set(this.form.contact[i], "content", e);
@@ -539,29 +534,29 @@ export default {
     handleDownload(file) {
       console.log(file);
     },
-    changepic() {
-      var reads = new FileReader();
-      let file = document.getElementById("file").files[0];
-      reads.readAsDataURL(file);
+
+    changepic(file) {
+      let reads = new FileReader();
+      let f = file.raw;
+      reads.readAsDataURL(f);
       let _vueThis = this;
       reads.onload = function () {
         _vueThis.form.pictureSrc = this.result;
-
-        document.getElementById("show").src = this.result;
+        console.log(_vueThis.form.pictureSrc);
       };
 
-      new Promise((resolve) => {
-        // console.log("压缩前", file) // 压缩到 1MB，大于 1MB 的图片都会进行压缩，小于则不会
-        imageConversion.compressAccurately(file, 50).then((res) => {
-          res = new File([res], file.name, {
-            type: res.type,
-            lastModified: Date.now(),
-          });
-          resolve(res);
-        });
-      }).then(() => {
-        // 上传图片至文件服务器
-      });
+      // new Promise((resolve) => {
+      //   // console.log("压缩前", file) // 压缩到 1MB，大于 1MB 的图片都会进行压缩，小于则不会
+      //   imageConversion.compressAccurately(file, 50).then((res) => {
+      //     res = new File([res], file.name, {
+      //       type: res.type,
+      //       lastModified: Date.now(),
+      //     });
+      //     resolve(res);
+      //   });
+      // }).then(() => {
+      //   // 上传图片至文件服务器
+      // });
     },
     handleCreate() {},
     handleEdit() {},
@@ -570,7 +565,14 @@ export default {
       this.$refs[formName].validate((valid) => {
         console.log(valid);
         if (valid) {
-          console.log(this.form);
+          let JosnForm = JSON.stringify(this.form);
+          console.log(JosnForm);
+          this.$router.push({
+            name: "resume",
+            query: {
+              form: JosnForm,
+            },
+          });
         } else {
           console.log(this.form);
           console.log("error submit!!");

@@ -1,19 +1,21 @@
 <template>
   <div id="resumeContent">
-    <div id="Sdiv">
-      <h3 style="background: red; position: absolute">leftTop</h3>
-      <h3 style="background: red; position: absolute; right: 0">rightTop</h3>
-      <h3 style="background: red; position: absolute; bottom: 0">leftBottom</h3>
-      <h3 style="background: red; position: absolute; right: 0; bottom: 0">
-        rightBottom
-      </h3>
-      <!--  120dpi的时候为1487×2105(像素/英寸)， -->
+    <!--  120dpi的时候为1487×2105(像素/英寸)， -->
+    <main id="imgContent">
       <img
         id="imgs"
-        src="@/assets/images/简历蓝色.png"
+        src="@/assets/images/blue.png"
         @load="Picture_view_center"
       />
-    </div>
+      <div id="FormContent">
+        <div><img class="resumeImg" :src="this.resmuForm.pictureSrc" /></div>
+        <div style="right: 0">
+          {{ resmuForm.name }}
+        </div>
+        <div style="bottom: 0; left: 0">leftBottom</div>
+        <div style="bottom: 0; right: 0">RightBottom</div>
+      </div>
+    </main>
   </div>
 
   <!-- 个人简历的纸张应选用比较规格化的尺寸大小，一般以复印纸的A4纸张为宜。
@@ -35,7 +37,10 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      scale: 0,
+      resmuForm: { pictureSrc: "" },
+    };
   },
   watch: {},
   computed: {},
@@ -49,42 +54,74 @@ export default {
       //distinguishFacility判断设备视口?【手机以宽为基准】- (缩小一点):【pc以高为基准】- (缩小一点)
       scale = distinguishFacility()
         ? viewW / imgW - 0.005
-        : viewH / imgH - 0.03;
-      console.log(scale);
+        : viewH / imgH - 0.005;
+      console.log(this.scale);
+      this.scale = scale;
+      console.log(this.scale);
+      $("#imgContent").css("font-size", `50px`);
       //初始化简历模板option设置
-      $("#Sdiv").css("transform", `scale(${scale})`);
-      $("#resumeContent").scrollLeft(
-        imgW / 2 -
-          $("#Sdiv").width() * (scale / 2) -
-          (viewW - $("#Sdiv").width() * scale) / 2
-      );
-      $("#resumeContent").scrollTop(
-        imgH / 2 -
-          $("#Sdiv").height() * (scale / 2) -
-          (viewH - $("#Sdiv").height() * scale) / 2
-      );
+      if (scale < 1) {
+        $("#imgContent").css("transform", `scale(${scale})`);
+        $(".resumeImg")
+          .eq(0)
+          .css("width", `${$(".resumeImg").width() * scale}px`);
+      }
+
+      // $("#resumeContent").scrollLeft(
+      //   imgW / 2 -
+      //     $("#imgs").width() * (scale / 2) -
+      //     (viewW - $("#imgs").width() * scale) / 2
+      // );
+      // $("#resumeContent").scrollTop(
+      //   imgH / 2 -
+      //     $("#imgs").height() * (scale / 2) -
+      //     (viewH - $("#imgs").height() * scale) / 2
+      // );
+      // $("#resumeContent").css("overflow", `hidden`);
     },
   },
-  created() {},
-  mounted() {},
+  created() {
+    this.resmuForm = this.$route.query.form
+      ? JSON.parse(this.$route.query.form)
+      : sessionStorage.getItem("myresumeform")
+      ? JSON.parse(sessionStorage.getItem("myresumeform"))
+      : {};
+
+    this.$route.query.form
+      ? (this.form = sessionStorage.setItem(
+          "myresumeform",
+          this.$route.query.form
+        ))
+      : {};
+    console.log(this.resmuForm);
+  },
+  mounted() {
+  },
 };
 </script>
 <style lang="scss" scoped>
 #resumeContent {
   height: 100%;
-  overflow: scroll;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  #Sdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
     position: relative;
-    display: inline-block;
   }
-  #Sdiv::before,
-  #Sdiv::after {
-    content: " ";
-    display: block;
-    clear: both;
+  #imgContent {
+    position: relative;
+    #FormContent {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      div {
+        position: absolute;
+      }
+    }
   }
 }
 </style>
