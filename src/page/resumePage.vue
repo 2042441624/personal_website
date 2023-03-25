@@ -8,12 +8,89 @@
         @load="Picture_view_center"
       />
       <div id="FormContent">
-        <div><img class="resumeImg" :src="this.resmuForm.pictureSrc" /></div>
-        <div style="right: 0">
-          {{ resmuForm.name }}
-        </div>
-        <div style="bottom: 0; left: 0">leftBottom</div>
-        <div style="bottom: 0; right: 0">RightBottom</div>
+        <el-col :xs="8">
+          <el-row type="flex"
+            ><img class="resumeImg" :src="this.srcurl"
+          /></el-row>
+          <el-row>
+            <div v-show="!checkState">{{ resmuForm.name }}</div>
+            <el-input
+              type="text"
+              v-model="resmuForm.name"
+              v-show="checkState"
+            />
+          </el-row>
+
+          <el-row>
+            <span>求职意向:</span>
+            <inputcontent
+              v-for="(o, index) in resmuForm.occupation"
+              :key="index"
+              :inputCcontent="o"
+              @setFormAtt="childSetFormAtt($event, 'occupation', index)"
+            ></inputcontent>
+          </el-row>
+          <el-row>个人信息</el-row>
+          <el-row
+            >出生年月：
+            <el-input
+              v-show="checkState"
+              type="text"
+              v-model="resmuForm.birthday"
+            /><span v-show="!checkState">{{ resmuForm.birthday }}</span></el-row
+          >
+          <el-row
+            >现住地址：
+            <el-input
+              type="text"
+              v-model="resmuForm.address"
+              v-show="checkState"
+            />
+            <div v-show="!checkState">{{ resmuForm.address }}</div>
+          </el-row>
+          <el-row
+            >最高学历：
+            <el-input
+              type="text"
+              v-model="resmuForm.education"
+              v-show="checkState"
+            />
+            <div v-show="!checkState">{{ resmuForm.education }}</div></el-row
+          >
+          <el-row
+            >毕业学校：
+            <el-input
+              type="text"
+              v-model="resmuForm.school"
+              v-show="checkState"
+            />
+            <div v-show="!checkState">{{ resmuForm.school }}</div></el-row
+          >
+          <el-row
+            >性别：<inputcontent :inputCcontent="resmuForm.sex"></inputcontent>
+          </el-row>
+          <el-row
+            >联系方式：
+            <div v-for="(contact, index) in resmuForm.contact" :key="index">
+              <div v-if="contact.ischecked">
+                <el-input
+                  type="text"
+                  v-model="contact.content"
+                  v-show="checkState"
+                />
+                {{ contact.title }}
+
+                <div v-show="!checkState">
+                  {{ contact.content }}
+                </div>
+              </div>
+            </div>
+          </el-row>
+        </el-col>
+        <el-col :xs="16">
+          <div>leftBottom</div>
+          <div>RightBottom</div></el-col
+        >
       </div>
     </main>
   </div>
@@ -33,17 +110,25 @@
 <script>
 import $ from "jquery";
 import { distinguishFacility } from "@/utility/viewport/viewport.js";
+import inputcontent from "@/components/Input.vue";
 export default {
-  components: {},
+  components: {
+    inputcontent,
+  },
   props: {},
   data() {
     return {
       scale: 0,
-      resmuForm: { pictureSrc: "" },
+      checkState: false,
+      resmuForm: {},
     };
   },
   watch: {},
-  computed: {},
+  computed: {
+    srcurl() {
+      return this.resmuForm.pictureSrc ? this.resmuForm.pictureSrc : "";
+    },
+  },
   methods: {
     Picture_view_center() {
       let imgW = $("#imgs").width();
@@ -52,13 +137,16 @@ export default {
       let viewH = $("#resumeContent").height();
       let scale;
       //distinguishFacility判断设备视口?【手机以宽为基准】- (缩小一点):【pc以高为基准】- (缩小一点)
-      scale = distinguishFacility()
-        ? viewW / imgW - 0.005
-        : viewH / imgH - 0.005;
-      console.log(this.scale);
+      if (distinguishFacility()) {
+        scale = viewW / imgW - 0.005;
+        $("#imgContent").css("font-size", `25px`);
+      } else {
+        scale = viewH / imgH - 0.005;
+        $("#imgContent").css("font-size", `50px`);
+      }
+
       this.scale = scale;
-      console.log(this.scale);
-      $("#imgContent").css("font-size", `50px`);
+
       //初始化简历模板option设置
       if (scale < 1) {
         $("#imgContent").css("transform", `scale(${scale})`);
@@ -66,37 +154,31 @@ export default {
           .eq(0)
           .css("width", `${$(".resumeImg").width() * scale}px`);
       }
-
-      // $("#resumeContent").scrollLeft(
-      //   imgW / 2 -
-      //     $("#imgs").width() * (scale / 2) -
-      //     (viewW - $("#imgs").width() * scale) / 2
-      // );
-      // $("#resumeContent").scrollTop(
-      //   imgH / 2 -
-      //     $("#imgs").height() * (scale / 2) -
-      //     (viewH - $("#imgs").height() * scale) / 2
-      // );
-      // $("#resumeContent").css("overflow", `hidden`);
+    },
+    childSetFormAtt(e, ...agrs) {
+      // 第一个参数子集传来的value，第二个参数string当前的属性，第三个索引
+      this.resmuForm[[...agrs][0]][[...agrs][1]] = e;
+      this.$route.query.form = "";
+      sessionStorage.removeItem("myresumeform");
+      sessionStorage.setItem("myresumeform", JSON.stringify(this.resmuForm));
     },
   },
   created() {
-    this.resmuForm = this.$route.query.form
-      ? JSON.parse(this.$route.query.form)
-      : sessionStorage.getItem("myresumeform")
+    // 判断刷新
+    this.resmuForm = sessionStorage.getItem("myresumeform")
       ? JSON.parse(sessionStorage.getItem("myresumeform"))
+      : this.$route.query.form
+      ? JSON.parse(this.$route.query.form)
       : {};
-
-    this.$route.query.form
-      ? (this.form = sessionStorage.setItem(
-          "myresumeform",
-          this.$route.query.form
-        ))
-      : {};
-    console.log(this.resmuForm);
+    this.$nextTick(() => {
+      this.$route.query.form = "";
+    });
   },
-  mounted() {
+  destroyed() {
+    //不删除see的form，等去到模板再删
+    this.$route.query.form = "";
   },
+  mounted() {},
 };
 </script>
 <style lang="scss" scoped>
@@ -119,7 +201,11 @@ export default {
       height: 100%;
       top: 0;
       div {
-        position: absolute;
+        position: relative;
+        display: inline-block;
+        .el-row {
+          display: block;
+        }
       }
     }
   }

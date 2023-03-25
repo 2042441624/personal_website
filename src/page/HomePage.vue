@@ -99,10 +99,13 @@
                   v-model="form.education"
                   placeholder="请选择您的学历"
                 >
-                  <el-option label="中专" value="0"></el-option>
-                  <el-option label="大专" value="1"></el-option>
-                  <el-option label="本科" value="2"></el-option>
-                  <el-option label="硕士/研究生" value="3"></el-option>
+                  <el-option label="中专" value="中专"></el-option>
+                  <el-option label="大专" value="大专"></el-option>
+                  <el-option label="本科" value="本科"></el-option>
+                  <el-option
+                    label="硕士/研究生"
+                    value="硕士/研究生"
+                  ></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="出生日期" prop="birthday">
@@ -491,6 +494,7 @@ export default {
   mounted() {},
   methods: {
     init() {
+      sessionStorage.removeItem("myresumeform");
       //视口初始化
       this.formIsInline = distinguishFacility();
       //加载初始化
