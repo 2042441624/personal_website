@@ -40,43 +40,45 @@
         status-icon
       >
         <el-row>
-          <el-upload action="#" list-type="picture-card" :auto-upload="false">
-            <i slot="default" class="el-icon-plus"></i>
-            <div slot="file" slot-scope="{ file }">
-              <img
-                class="el-upload-list__item-thumbnail"
-                :src="file.url"
-                alt=""
-                @load="changepic(file)"
-              />
-              <span class="el-upload-list__item-actions">
-                <span
-                  class="el-upload-list__item-preview"
-                  @click="handlePictureCardPreview(file)"
-                >
-                  <i class="el-icon-zoom-in"></i>
+          <!-- 头部图片 -->
+          <el-row>
+            <el-upload action="#" list-type="picture-card" :auto-upload="false">
+              <i slot="default" class="el-icon-plus"></i>
+              <div slot="file" slot-scope="{ file }">
+                <img
+                  class="el-upload-list__item-thumbnail"
+                  :src="file.url"
+                  alt=""
+                  @load="changepic(file)"
+                />
+                <span class="el-upload-list__item-actions">
+                  <span
+                    class="el-upload-list__item-preview"
+                    @click="handlePictureCardPreview(file)"
+                  >
+                    <i class="el-icon-zoom-in"></i>
+                  </span>
+                  <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleDownload(file)"
+                  >
+                    <i class="el-icon-download"></i>
+                  </span>
+                  <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleRemove(file)"
+                  >
+                    <i class="el-icon-delete"></i>
+                  </span>
                 </span>
-                <span
-                  v-if="!disabled"
-                  class="el-upload-list__item-delete"
-                  @click="handleDownload(file)"
-                >
-                  <i class="el-icon-download"></i>
-                </span>
-                <span
-                  v-if="!disabled"
-                  class="el-upload-list__item-delete"
-                  @click="handleRemove(file)"
-                >
-                  <i class="el-icon-delete"></i>
-                </span>
-              </span>
-            </div>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="" />
-          </el-dialog>
-
+              </div>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="" /> </el-dialog
+          ></el-row>
+          <!-- 基本信息 -->
           <el-col>
             <el-row>
               <el-form-item label="姓名" prop="name">
@@ -194,137 +196,15 @@
             </el-row>
           </el-col>
         </el-row>
-        <el-form-item
-          label="自我评价"
-          id="selfAssessment"
-          style="display: block"
-        >
-          <el-table :data="form.selfAssessment" style="width: 100%">
-            <el-table-column label="标签" prop="name"> </el-table-column>
-            <el-table-column label="内容" prop="address"> </el-table-column>
-            <el-table-column align="right">
-              <template slot="header" slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleCreate(scope.$index, scope.row)"
-                  >新建</el-button
-                >
-              </template>
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @once="handleEdit(scope.$index, scope.row)"
-                  >编辑</el-button
-                >
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-form-item>
-        <el-form-item style="display: block; width: 100%; padding-right: 10px">
-          <div
-            style="
-              margin-bottom: 10px;
-              display: flex;
-              justify-content: space-between;
-            "
-          >
-            <span slot="label">
-              <span>学习背景</span>
-              <el-tooltip class="item" effect="light" placement="right-start">
-                <span slot="content"
-                  ><!--slot-->
-                  <span v-for="item in 10" :key="item">{{ item }}<br /></span>
-                </span>
-                <i class="el-icon-question" /><!--小问号提示-->
-              </el-tooltip>
-            </span>
-            <el-button
-              type="primary"
-              @click="createdInputItem($event)"
-              style="float: right"
-              size="mini"
-              >立即创建</el-button
-            >
-          </div>
-          <ul>
-            <li>
-              <el-row
-                ><el-col :sm="5"
-                  ><el-input
-                    type="text"
-                    v-model="form.desc"
-                    style="display: inline"
-                    placeholder="你的概述标签"
-                  ></el-input>
-                </el-col>
-                <el-col :span="0.2">:</el-col>
-                <el-col :sm="18" :span="18">
-                  <el-input
-                    type="text"
-                    v-model="form.desc"
-                    placeholder="你的标签内容"
-                  ></el-input
-                ></el-col>
-              </el-row>
-            </li>
-          </ul>
-        </el-form-item>
-        <el-form-item style="display: block; width: 100%; padding-right: 10px">
-          <div
-            style="
-              margin-bottom: 10px;
-              display: flex;
-              justify-content: space-between;
-            "
-          >
-            <span slot="label">
-              <span>项目经验</span>
-              <el-tooltip class="item" effect="light" placement="right-start">
-                <span slot="content"
-                  ><!--slot-->
-                  <span v-for="item in 10" :key="item">{{ item }}<br /></span>
-                </span>
-                <i class="el-icon-question" /><!--小问号提示-->
-              </el-tooltip>
-            </span>
-            <el-button
-              type="primary"
-              @click="created('bioForm')"
-              style="float: right"
-              size="mini"
-              >立即创建</el-button
-            >
-          </div>
-
-          <el-input
-            :autosize="{ minRows: 4, maxRows: 8 }"
-            style="width: 100%"
-            placeholder="请输入内容"
-            type="textarea"
-          />
-        </el-form-item>
-
-        <el-form-item label="教育背景" style="display: block">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
-        <el-form-item label="工作经验" style="display: block">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
-        <el-form-item label="实习经验" style="display: block">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
-        <el-form-item label="项目经验" style="display: block">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
-        <el-form-item label="综合经验" style="display: block">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
+        <!-- 相关信息 -->
+        <newlable
+          :ExperiencerelatedTitle="relevant.label + '_' + index"
+          v-for="(relevant, index) in relevantInformationList"
+          :key="relevant.label + index"
+          v-on:resInnerObj="resInnerObj"
+          v-on:setInput="setInput"
+        ></newlable>
+        <!-- 提交区域 -->
         <el-form-item>
           <el-button type="primary" @click="submitForm('bioForm')"
             >立即创建</el-button
@@ -338,15 +218,69 @@
 
 <script>
 import { distinguishFacility } from "@/utility/viewport/viewport.js";
-import { getparent } from "@/utility/viewport/DOMcorrelation.js";
-// import * as imageConversion from "image-conversion";
-import $ from "jquery";
+import newlable from "@/components/NewLabel.vue";
+
 export default {
   name: "home_page",
   data() {
     return {
+      //经验相关
+      label: "aa",
+      relevantInformationList: [
+        {
+          label: "学习背景",
+          date: "",
+          itemsList: [
+            {
+              fInput: "",
+              lInput: "",
+            },
+          ],
+        },
+        {
+          label: "工作经验",
+          date: "",
+          itemsList: [
+            {
+              fInput: "",
+              lInput: "",
+            },
+          ],
+        },
+        {
+          label: "实习经验",
+          date: "",
+          itemsList: [
+            {
+              fInput: "",
+              lInput: "",
+            },
+          ],
+        },
+
+        {
+          label: "项目经验",
+          date: "",
+          itemsList: [
+            {
+              fInput: "",
+              lInput: "",
+            },
+          ],
+        },
+        {
+          label: "综合实力",
+          date: "",
+          itemsList: [
+            {
+              fInput: "",
+              lInput: "",
+            },
+          ],
+        },
+      ],
+      labelList: ["学习背景", "工作经验", "实习经验", "项目经验", "综合实力"],
       //头像
-      imageUrl: "",
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
@@ -368,23 +302,23 @@ export default {
         pictureSrc: "",
         school: "",
         sex: "",
-        selfAssessment: [
-          {
-            date: "2016-05-02",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄",
-          },
-          {
-            date: "2016-05-04",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1517 弄",
-          },
-          {
-            date: "2016-05-01",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1519 弄",
-          },
-        ],
+        // selfAssessment: [
+        //   {
+        //     date: "2016-05-02",
+        //     name: "王小虎",
+        //     address: "上海市普陀区金沙江路 1518 弄",
+        //   },
+        //   {
+        //     date: "2016-05-04",
+        //     name: "王小虎",
+        //     address: "上海市普陀区金沙江路 1517 弄",
+        //   },
+        //   {
+        //     date: "2016-05-01",
+        //     name: "王小虎",
+        //     address: "上海市普陀区金沙江路 1519 弄",
+        //   },
+        // ],
         contact: [
           {
             title: "手机",
@@ -408,7 +342,6 @@ export default {
         resource: "",
         desc: "",
       },
-      computed: {},
       rules: {
         name: [
           { required: true, message: "请输入名字", trigger: "blur" },
@@ -487,15 +420,17 @@ export default {
   props: {
     msg: String,
   },
+  components: {
+    newlable,
+  },
   created() {
     this.init();
   },
-
   mounted() {},
   methods: {
     init() {
       sessionStorage.removeItem("myresumeform");
-      //视口初始化
+      //视口初始化desc
       this.formIsInline = distinguishFacility();
       //加载初始化
       let a = setTimeout(() => {
@@ -504,21 +439,38 @@ export default {
         clearTimeout(a);
       }, 1500);
     },
-    // 新建输入框
-    createdInputItem(event) {
-      let eventParent = getparent(event.target, ".el-form-item__content");
-      console.log();
-      $(eventParent)
-        .children("ul")
-        .eq(0)
-        .append(
-          `<li data-v-8b8e04b6=""><div data-v-8b8e04b6="" class="el-row"><div data-v-8b8e04b6="" class="el-col el-col-24 el-col-sm-5"><div data-v-8b8e04b6="" class="el-input" style="display: inline;"><!----><input type="text" autocomplete="off" placeholder="你的概述标签" class="el-input__inner"><!----><!----><!----><!----></div></div><div data-v-8b8e04b6="" class="el-col el-col-0.2">:</div><div data-v-8b8e04b6="" class="el-col el-col-18 el-col-sm-18"><div data-v-8b8e04b6="" class="el-input"><!----><input type="text" autocomplete="off" placeholder="你的标签内容" class="el-input__inner"><!----><!----><!----><!----></div></div></div></li>`
-        );
+    resInnerObj(value) {
+      console.log(value);
+      let index = value.split("_")[1];
+      console.log(index);
+      let label = value.split("_")[0];
+      console.log(this.relevantInformationList[index]);
+      if (
+        this.relevantInformationList[index] &&
+        this.relevantInformationList[index].label === label
+      ) {
+        this.relevantInformationList[index].itemsList.push({
+          fInput: "",
+          lInput: "",
+        });
+      }
     },
-    //生产简历按钮
-    generateBiographicalNotes() {},
+    // 相关经验的尾部input
+    setInput(E) {
+      // 获取索引
+      let index = E[1].split("_")[1];
+      let label = E[1].split("_")[0];
+      if (
+        this.relevantInformationList[index] &&
+        this.relevantInformationList[index].label === label
+      ) {
+        let nowFormitemObj = this.relevantInformationList[index];
+        console.log(nowFormitemObj);
+        nowFormitemObj.itemsList[E[0]["index"]][E[0]["inputkey"]] =
+          E[0]["inputValue"];
+      }
+    },
     handlInput(e, i) {
-      console.log(e);
       this.$set(this.form.contact[i], "content", e);
     },
     handlRequired(r, t) {
@@ -563,19 +515,20 @@ export default {
       // });
     },
     handleCreate() {},
-    handleEdit() {},
-    handleDelete() {},
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         console.log(valid);
         if (valid) {
-          let JosnForm = JSON.stringify(this.form);
-          console.log(JosnForm);
-          this.$router.push({
-            name: "resume",
-            query: {
-              form: JosnForm,
-            },
+          this.$nextTick(() => {
+            let JosnForm = JSON.stringify(this.form);
+            console.log(JosnForm);
+            this.$router.push({
+              name: "resume",
+              query: {
+                form: JosnForm,
+              },
+            });
           });
         } else {
           console.log(this.form);

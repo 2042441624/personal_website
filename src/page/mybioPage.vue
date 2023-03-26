@@ -38,7 +38,7 @@ export default {
 #per_img {
   height: 100%;
   position: relative;
-  background-image: url("@/assets/images/个人简历3.19.png");
+  background-image: url("@/assets/images/mybio3_19.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

@@ -165,6 +165,7 @@ export default {
   },
   created() {
     // 判断刷新
+
     this.resmuForm = sessionStorage.getItem("myresumeform")
       ? JSON.parse(sessionStorage.getItem("myresumeform"))
       : this.$route.query.form
@@ -173,6 +174,7 @@ export default {
     this.$nextTick(() => {
       this.$route.query.form = "";
     });
+    console.log(this.resmuForm);
   },
   destroyed() {
     //不删除see的form，等去到模板再删

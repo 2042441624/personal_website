@@ -289,7 +289,7 @@ export default {
       .img_filing {
         width: 20px;
         height: 20px;
-        background-image: url("@/assets/images/国徽.jpg");
+        background-image: url("@/assets/images/nationalemblem.jpg");
         background-size: cover;
         background-origin: center;
       }
