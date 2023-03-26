@@ -8,7 +8,16 @@
         @load="Picture_view_center"
       />
       <div id="FormContent">
-        <el-col :xs="8">
+        <el-col
+          :xs="8"
+          style="
+            height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: center;
+          "
+        >
           <el-row type="flex"
             ><img class="resumeImg" :src="this.srcurl"
           /></el-row>
@@ -67,7 +76,10 @@
             <div v-show="!checkState">{{ resmuForm.school }}</div></el-row
           >
           <el-row
-            >性别：<inputcontent :inputCcontent="resmuForm.sex"></inputcontent>
+            >性别：<inputcontent
+              :inputCcontent="resmuForm.sex"
+              @setFormAtt="childSetFormAtt($event, 'sex', index)"
+            ></inputcontent>
           </el-row>
           <el-row
             >联系方式：
@@ -87,10 +99,31 @@
             </div>
           </el-row>
         </el-col>
-        <el-col :xs="16">
-          <div>leftBottom</div>
-          <div>RightBottom</div></el-col
+        <el-col
+          :xs="16"
+          style="
+            height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: center;
+          "
         >
+          <el-row
+            v-for="(
+              relevantInformation, index
+            ) in resmuForm.relevantInformationList"
+            :key="relevantInformation.label + '_' + index"
+          >
+            <inputcontent :inputCcontent="relevantInformation.label"
+              ><div slot="main">
+                <el-row
+                  v-for="(item, index) in relevantInformation.itemsList"
+                  :key="index"
+                  ><inputcontent :inputCcontent="item.fInput"></inputcontent
+                  ><inputcontent :inputCcontent="item.lInput"></inputcontent
+                ></el-row></div></inputcontent></el-row
+        ></el-col>
       </div>
     </main>
   </div>
@@ -156,6 +189,7 @@ export default {
       }
     },
     childSetFormAtt(e, ...agrs) {
+      console.log(...agrs);
       // 第一个参数子集传来的value，第二个参数string当前的属性，第三个索引
       this.resmuForm[[...agrs][0]][[...agrs][1]] = e;
       this.$route.query.form = "";
@@ -171,10 +205,8 @@ export default {
       : this.$route.query.form
       ? JSON.parse(this.$route.query.form)
       : {};
-    this.$nextTick(() => {
-      this.$route.query.form = "";
-    });
-    console.log(this.resmuForm);
+
+    console.log(this.$route.query.form);
   },
   destroyed() {
     //不删除see的form，等去到模板再删

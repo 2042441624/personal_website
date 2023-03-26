@@ -89,8 +89,8 @@
               </el-form-item>
               <el-form-item label="性别" prop="sex">
                 <el-select v-model="form.sex" placeholder="请选择您的性别">
-                  <el-option label="男" value="1"></el-option>
-                  <el-option label="女" value="0"></el-option>
+                  <el-option label="男" value="男"></el-option>
+                  <el-option label="女" value="女"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="学校" prop="school">
@@ -199,7 +199,7 @@
         <!-- 相关信息 -->
         <newlable
           :ExperiencerelatedTitle="relevant.label + '_' + index"
-          v-for="(relevant, index) in relevantInformationList"
+          v-for="(relevant, index) in form.relevantInformationList"
           :key="relevant.label + index"
           v-on:resInnerObj="resInnerObj"
           v-on:setInput="setInput"
@@ -226,59 +226,7 @@ export default {
     return {
       //经验相关
       label: "aa",
-      relevantInformationList: [
-        {
-          label: "学习背景",
-          date: "",
-          itemsList: [
-            {
-              fInput: "",
-              lInput: "",
-            },
-          ],
-        },
-        {
-          label: "工作经验",
-          date: "",
-          itemsList: [
-            {
-              fInput: "",
-              lInput: "",
-            },
-          ],
-        },
-        {
-          label: "实习经验",
-          date: "",
-          itemsList: [
-            {
-              fInput: "",
-              lInput: "",
-            },
-          ],
-        },
 
-        {
-          label: "项目经验",
-          date: "",
-          itemsList: [
-            {
-              fInput: "",
-              lInput: "",
-            },
-          ],
-        },
-        {
-          label: "综合实力",
-          date: "",
-          itemsList: [
-            {
-              fInput: "",
-              lInput: "",
-            },
-          ],
-        },
-      ],
       labelList: ["学习背景", "工作经验", "实习经验", "项目经验", "综合实力"],
       //头像
       dialogImageUrl: "",
@@ -302,23 +250,60 @@ export default {
         pictureSrc: "",
         school: "",
         sex: "",
-        // selfAssessment: [
-        //   {
-        //     date: "2016-05-02",
-        //     name: "王小虎",
-        //     address: "上海市普陀区金沙江路 1518 弄",
-        //   },
-        //   {
-        //     date: "2016-05-04",
-        //     name: "王小虎",
-        //     address: "上海市普陀区金沙江路 1517 弄",
-        //   },
-        //   {
-        //     date: "2016-05-01",
-        //     name: "王小虎",
-        //     address: "上海市普陀区金沙江路 1519 弄",
-        //   },
-        // ],
+        relevantInformationList: [
+          {
+            label: "学习背景",
+            date: "",
+            itemsList: [
+              {
+                fInput: "",
+                lInput: "",
+              },
+            ],
+          },
+          {
+            label: "工作经验",
+            date: "",
+            itemsList: [
+              {
+                fInput: "",
+                lInput: "",
+              },
+            ],
+          },
+          {
+            label: "实习经验",
+            date: "",
+            itemsList: [
+              {
+                fInput: "",
+                lInput: "",
+              },
+            ],
+          },
+
+          {
+            label: "项目经验",
+            date: "",
+            itemsList: [
+              {
+                fInput: "",
+                lInput: "",
+              },
+            ],
+          },
+          {
+            label: "综合实力",
+            date: "",
+            itemsList: [
+              {
+                fInput: "",
+                lInput: "",
+              },
+            ],
+          },
+        ],
+
         contact: [
           {
             title: "手机",
@@ -444,12 +429,12 @@ export default {
       let index = value.split("_")[1];
       console.log(index);
       let label = value.split("_")[0];
-      console.log(this.relevantInformationList[index]);
+      console.log(this.form.relevantInformationList[index]);
       if (
-        this.relevantInformationList[index] &&
-        this.relevantInformationList[index].label === label
+        this.form.relevantInformationList[index] &&
+        this.form.relevantInformationList[index].label === label
       ) {
-        this.relevantInformationList[index].itemsList.push({
+        this.form.relevantInformationList[index].itemsList.push({
           fInput: "",
           lInput: "",
         });
@@ -461,10 +446,10 @@ export default {
       let index = E[1].split("_")[1];
       let label = E[1].split("_")[0];
       if (
-        this.relevantInformationList[index] &&
-        this.relevantInformationList[index].label === label
+        this.form.relevantInformationList[index] &&
+        this.form.relevantInformationList[index].label === label
       ) {
-        let nowFormitemObj = this.relevantInformationList[index];
+        let nowFormitemObj = this.form.relevantInformationList[index];
         console.log(nowFormitemObj);
         nowFormitemObj.itemsList[E[0]["index"]][E[0]["inputkey"]] =
           E[0]["inputValue"];

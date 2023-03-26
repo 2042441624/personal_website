@@ -1,17 +1,23 @@
 <template>
-  <div class="InputContent" @click="handlShow">
-    <span v-show="!inputState">{{ showcontent }}</span>
-    <el-input
-      type="text"
-      v-model="showcontent"
-      v-show="inputState"
-      @blur="nodeInput($event)"
-      @keyup.enter.native="nodeInput($event)"
-    />
+  <div class="InputContent">
+    <el-row style="padding: 10px; margin-bottom: 20px"
+      ><div v-show="!inputState" @click.self="handlShow">
+        {{ showcontent }}
+      </div>
+      <el-input
+        type="text"
+        v-model="showcontent"
+        v-show="inputState"
+        @click.native="handlShow"
+        @blur.capture="nodeInput($event)"
+        @keyup.enter.native="nodeInput($event)"
+    /></el-row>
+    <el-row><slot name="main"></slot></el-row>
   </div>
 </template>
 
 <script>
+import $ from "jquery";
 export default {
   name: "inputContent",
 
@@ -37,17 +43,25 @@ export default {
   },
   computed: {},
   methods: {
-    handlShow() {
+    handlShow(e) {
       this.inputState = !this.inputState;
-      const allInput = document.getElementsByTagName("input");
-      [...allInput].forEach((item) => {
-        if (item.value === this.showcontent) {
-          this.$nextTick(() => {
-            item.focus();
-          });
-        }
-        item.blur();
-      });
+      if (this.inputState) {
+        this.$nextTick(() => {
+          $(e.target)
+            .parent()
+            .children()
+            .eq(1)
+            .find(".el-input__inner")
+            .focus();
+          $(e.target)
+            .parent()
+            .children()
+            .eq(1)
+            .find(".el-input__inner")
+            .select();
+        });
+        this.$emit("setFormAtt", e.target.value);
+      }
     },
     nodeInput(e) {
       this.inputState = false;
