@@ -41,22 +41,22 @@ export default {
           imgUrl: require("@/assets/images/Html.png"),
         },
         {
-          title: "",
+          title: "Css",
           content: [],
           imgUrl: require("@/assets/images/Css.png"),
         },
         {
-          title: "",
+          title: "Javascript",
           content: [],
           imgUrl: require("@/assets/images/Javascript.png"),
         },
         {
-          title: "",
+          title: "Axios",
           content: [],
           imgUrl: require("@/assets/images/Axios.png"),
         },
         {
-          title: "",
+          title: "Sass",
           content: ["", "css预处理，变量，块级编程，css函数"],
           imgUrl: require("@/assets/images/Sass.png"),
         },
@@ -69,22 +69,22 @@ export default {
           imgUrl: require("@/assets/images/Vue.png"),
         },
         {
-          title: "",
+          title: "element-ui",
           content: [],
           imgUrl: require("@/assets/images/element-ui.png"),
         },
         {
-          title: "",
+          title: "Echarts",
           content: [],
           imgUrl: require("@/assets/images/Echarts.png"),
         },
         {
-          title: "",
+          title: "wechat",
           content: [],
           imgUrl: require("@/assets/images/wechat-logo-mini-program.png"),
         },
         {
-          title: "",
+          title: "uniapp",
           content: [],
           imgUrl: require("@/assets/images/uniapp.png"),
         },
@@ -94,14 +94,19 @@ export default {
   watch: {},
   computed: {},
   methods: {},
-  created() {},
+  created() {
+    // document.styleSheets[0].addRule(
+    //   "span::before",
+    //   'left:0;top:0;content:"";background:"fff";width:100%;height:50%;position:absolute;border-bottom:1px solid #fff;'
+    // );
+  },
   mounted() {
+    //滚动事件的操作
     let maxHeight = document.querySelector(".maxHeight");
     let app_breadcrumb = document.querySelector(".app_breadcrumb");
     let container = document.querySelector(".container");
     maxHeight.addEventListener("scroll", function () {
       this.nowScrollNumber = maxHeight.scrollTop;
-
       if (
         maxHeight.scrollTop >=
         container.parentNode.offsetTop - container.offsetTop
@@ -111,29 +116,43 @@ export default {
         app_breadcrumb.style.top = `0px`;
       }
     });
+
+    //card的操作
     let cardHeros = document.querySelectorAll(".card-Hero");
+    // 操作伪类的样式
+    let style = document.createElement("style");
+    document.head.appendChild(style);
+    let sheet = style.sheet;
+    let time = 360 / cardHeros.length;
     for (var i = 0; i < cardHeros.length; i++) {
+      // 操作伪类延时
+      sheet.addRule(
+        `.card-Hero:nth-child(${i})::before`,
+        `animation-delay: ${time * 10 * i}ms;`,
+        0
+      );
       cardHeros[i].index = i; // 为第i个li元素添加一个index属性，赋值为i
       cardHeros[i].addEventListener("click", function () {
-        console.log(this.index);
+        // 隐藏不是被点击的crad
         for (let index = 0; index < cardHeros.length; index++) {
           if (index !== this.index) {
             cardHeros[index].classList.remove("card-HeroMax");
-            cardHeros[index].children[0].children[0].style.opacity = 0;
-            cardHeros[index].children[0].children[0].style.visibility =
-              "hidden";
-            cardHeros[index].children[0].children[1].style.width = 100 + "%";
-            cardHeros[index].children[0].children[1].style.height = 100 + "%";
-            cardHeros[index].children[0].children[1].style.transform =
-              "translateX(" + 0 + "%)";
-            cardHeros[index].children[0].children[1].style.scale = 0.5;
+            cardHeros[index].children[0].children[0].classList.add("card-visi");
+            cardHeros[index].children[0].children[1].classList.add(
+              "card-img-center"
+            );
           }
+          cardHeros[index].children[0].children[0].classList.remove(
+            "card-visi"
+          );
+          cardHeros[index].children[0].children[1].classList.remove(
+            "card-img-center"
+          );
         }
-        // content - HeroShow;
 
-        console.log();
+        // 是否有[触发后toggle]card-HeroMax的样式；没有使用集成class，需要还原加载时候样式
         if (this.classList.toggle("card-HeroMax")) {
-          console.log("显示了");
+          console.log("没有就是显示");
           this.children[0].children[0].style.opacity = 1;
           this.children[0].children[0].style.visibility = "visible";
           this.children[0].children[1].style.width = 25 + "%";
@@ -142,7 +161,6 @@ export default {
           this.children[0].children[1].style.transform =
             "translateX(" + 300 + "%)";
         } else {
-          console.log("隐藏了");
           this.children[0].children[0].style.opacity = 0;
           this.children[0].children[0].style.visibility = "hidden";
           this.children[0].children[1].style.width = 100 + "%";
@@ -151,7 +169,6 @@ export default {
           this.children[0].children[1].style.transform =
             "translateX(" + 0 + "%)";
         }
-        // 为第i个li元素添加一个click事件，当元素被点击时，则会在控制台输出索引
       });
     }
   },
@@ -184,16 +201,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-
-@keyframes slidein {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
 .container {
   font-family: "Poppins", sans-serif;
   position: relative;
@@ -204,127 +211,22 @@ export default {
   padding: 1rem;
   gap: 10px 2%;
 }
-.container .card-Hero {
-  max-width: 32%;
-  flex-grow: 1;
-  padding: 0.25rem;
-  height: 300px;
-  background: rgba(#eeeeee, 0.3);
-  border-radius: 15px;
-  transition: 0.7s;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-}
 
-.container .card-Hero::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  width: 100%;
-  height: 200%;
-  left: 50%;
-  top: 50%;
-  background: linear-gradient(
-    to right,
-    #ffa0d3 0%,
-    #d8edd8 0%,
-    #d3fad3 0%,
-    #f4d596 30%,
-    #f0ffc0 64%,
-    #92fbfd 100%
-  );
-  transform-origin: left top;
-  animation: card-Hero-bg 6s linear infinite;
+// 操作性的css
+.card-HeroMax {
+  min-width: 100%;
+  max-height: 200px;
 }
-.container .card-Hero:nth-child(1)::before {
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-}
-.container .card-Hero:nth-child(2)::before {
-  animation-delay: 1.5s;
-}
-.container .card-Hero:nth-child(3)::before {
-  animation-delay: 0.07s;
-}
-@keyframes card-Hero-bg {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.container .card-Hero .content-Hero {
-  width: 99%;
-  height: 99%;
-  background-color: rgb(255, 252, 238);
-  position: relative;
-  margin: 0.5%;
-  z-index: 99;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: left;
-  color: #111;
-  transition: 0.5s;
-}
-.container .card-Hero .content-Hero .content-show {
+.card-visi {
   opacity: 0;
   visibility: hidden;
-  height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: left;
 }
-.container .card-Hero .content-Hero img {
-  display: block;
-  position: absolute;
-  transition: 0.5s;
-  left: 0;
-  top: 0;
+.card-img-center {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  z-index: 9;
+  transform: translateX(0%);
   scale: 0.5;
 }
-
-.container .card-Hero .content-Hero h3 {
-  max-width: 100%;
-  overflow: hidden;
-
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.container .card-Hero .content-Hero p {
-  max-width: 80%;
-  font-size: 0.75rem;
-  overflow: hidden;
-  white-space: wrap;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  text-align: left;
-}
-.container .card-Hero .content-Hero a {
-  width: 80%;
-  text-align: center;
-  position: relative;
-  color: #111;
-  background: #fff;
-  padding: 10px 20px;
-  margin-top: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 5px;
-  display: inline-block;
-}
-
 @media screen and (max-width: 425px) {
   .container {
     margin: 0;
@@ -333,11 +235,6 @@ export default {
   .container .card-Hero {
     border-radius: 5px;
     max-height: 150px;
-  }
-
-  .card-HeroMax {
-    min-width: 100%;
-    max-height: 200px;
   }
 
   .container .card-Hero .content-Hero p {

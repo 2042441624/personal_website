@@ -2,7 +2,7 @@
   <div class="card-Hero">
     <div class="content-Hero clearfix">
       <div class="content-show" style="">
-        <h3>cradObj.title</h3>
+        <h3>{{ cradObj.title }}</h3>
         <div>
           <p>{{ cradObj.content[0] }}</p>
           <p>{{ cradObj.content[1] }}</p>
@@ -116,6 +116,7 @@ export default {
     }
   }
 }
+
 .card-Hero::before {
   content: "";
   position: absolute;
@@ -135,6 +136,14 @@ export default {
   );
   transform-origin: left top;
   animation: card-Hero-bg 6s linear infinite;
+}
+@keyframes card-Hero-bg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media screen and (max-width: 425px) {
   .container {
