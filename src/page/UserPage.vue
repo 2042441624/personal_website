@@ -59,11 +59,6 @@
                 </li>
 
                 <li>
-                  <el-button icon="el-icon-loading" el-icon-s-custom>
-                    状态：待业</el-button
-                  >
-                </li>
-                <li>
                   <el-button icon="el-icon-phone-outline" el-icon-s-custom>
                     18926730109</el-button
                   >

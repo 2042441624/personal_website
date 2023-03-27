@@ -14,166 +14,86 @@
     </template>
     <template slot="center">
       <div class="container">
-        <div class="card-Hero">
-          <div class="content-Hero clearfix">
-            <div class="content-show">
-              <h3>Html</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>BFC ,canvas</p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Html.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero clearfix">
-            <div class="content-show">
-              <h3>Css</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>@media/font适配,flex,定位,动画过渡，canvas</p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Css.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Javascript</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>原型链,闭包,this,引用类型,数据类型,DOM,BOM,冒泡事件</p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Javascript.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Axios</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>请求拦截，返回pomise</p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Axios.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Sass/Scss</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>css预处理，变量，块级编程，css函数</p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Sass.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Vue2</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>
-                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
-                </p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Vue.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Element-ui</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>
-                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
-                </p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/element-ui.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>Echarts</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>
-                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
-                </p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/Echarts.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>mini-program</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>
-                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
-                </p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/wechat-logo-mini-program.png" />
-          </div>
-        </div>
-        <div class="card-Hero">
-          <div class="content-Hero">
-            <div class="content-show">
-              <h3>uniapp</h3>
-              <div>
-                <p>程度：基本了解</p>
-                <p>
-                  生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由
-                </p>
-              </div>
-              <a href="#">查看日记</a>
-            </div>
-            <img src="../assets/images/uniapp.png" />
-          </div>
-        </div>
+        <uechnicalBGCarl
+          v-for="cobj in uechnicalBGCarlList"
+          :key="cobj.title"
+          :crad="cobj"
+        ></uechnicalBGCarl>
       </div>
     </template>
   </CradComponent>
 </template>
 <script>
 import CradComponent from "../components/CradComponent.vue";
+import uechnicalBGCarl from "../components/user/U_echnicalBGCarl.vue";
 
 export default {
-  components: { CradComponent },
+  components: { CradComponent, uechnicalBGCarl },
   props: {},
   data() {
-    return { cradTitle: "技术背景", activeNames: [] };
+    return {
+      cradTitle: "技术背景",
+      activeNames: [],
+      uechnicalBGCarlList: [
+        {
+          title: "Html",
+          content: ["程度：基本了解", "BFC ,canvas"],
+          imgUrl: require("@/assets/images/Html.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/Css.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/Javascript.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/Axios.png"),
+        },
+        {
+          title: "",
+          content: ["", "css预处理，变量，块级编程，css函数"],
+          imgUrl: require("@/assets/images/Sass.png"),
+        },
+        {
+          title: "",
+          content: [
+            "",
+            "生命周期，双向绑定，计算属性，和属性监听，数据通信，pubsub，$trim,prop,vuex全局数据管理，vuerouter路由",
+          ],
+          imgUrl: require("@/assets/images/Vue.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/element-ui.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/Echarts.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/wechat-logo-mini-program.png"),
+        },
+        {
+          title: "",
+          content: [],
+          imgUrl: require("@/assets/images/uniapp.png"),
+        },
+      ],
+    };
   },
   watch: {},
   computed: {},
-  methods: {
-    handleChange(val) {
-      console.log(val);
-    },
-  },
+  methods: {},
   created() {},
   mounted() {
     let maxHeight = document.querySelector(".maxHeight");
@@ -186,7 +106,6 @@ export default {
         maxHeight.scrollTop >=
         container.parentNode.offsetTop - container.offsetTop
       ) {
-    
         app_breadcrumb.style.top = `${maxHeight.scrollTop - 10}px`;
       } else {
         app_breadcrumb.style.top = `0px`;
@@ -353,6 +272,11 @@ export default {
 .container .card-Hero .content-Hero .content-show {
   opacity: 0;
   visibility: hidden;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: left;
 }
 .container .card-Hero .content-Hero img {
   display: block;
@@ -418,6 +342,8 @@ export default {
 
   .container .card-Hero .content-Hero p {
     -webkit-line-clamp: 5;
+  }
+  .container .card-Hero .content-Hero .content-show div a {
   }
 }
 </style>
